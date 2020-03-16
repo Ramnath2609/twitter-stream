@@ -11,6 +11,7 @@ class App extends React.Component{
       tweets : [],
       keyword : '',
       loadMore : false,
+      hidebutton : true
     }
 
     this.socket = io('localhost:3265')
@@ -37,7 +38,7 @@ class App extends React.Component{
   }
 
   handleClick = () => {
-    this.setState({ loadMore : true })
+    this.setState({ loadMore : true, hidebutton : false })
   }
 
   render() {
@@ -80,7 +81,7 @@ class App extends React.Component{
              })
            }
          </ul>
-         { this.state.tweets.length != 0 && <button onClick = { this.handleClick }>Load more</button> }
+         { this.state.tweets.length != 0 && this.state.hidebutton ? <button onClick = { this.handleClick }>Load more</button> : ''}
          { this.state.loadMore && (
             <InfiniteScroll
             dataLength={this.state.tweets.length}
